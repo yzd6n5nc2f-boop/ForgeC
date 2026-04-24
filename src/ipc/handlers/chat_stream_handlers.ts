@@ -22,6 +22,7 @@ import {
   constructSystemPrompt,
   readAiRules,
 } from "../../prompts/system_prompt";
+import { detectFrameworkType } from "../utils/framework_utils";
 import { getThemePromptById } from "../utils/theme_utils";
 import {
   getSupabaseAvailableSystemPrompt,
@@ -785,6 +786,10 @@ ${componentSnippet}
           `Theme for app ${updatedChat.app.id}: ${updatedChat.app.themeId ?? "none"}, prompt length: ${themePrompt.length} chars`,
         );
 
+        const frameworkType = detectFrameworkType(
+          getDyadAppPath(updatedChat.app.path),
+        );
+
         // Migration on read converts "agent" to "build", so no need to check for it here
         let systemPrompt = constructSystemPrompt({
           aiRules,
@@ -792,6 +797,8 @@ ${componentSnippet}
           enableTurboEditsV2: isTurboEditsV2Enabled(settings),
           themePrompt,
           basicAgentMode: isBasicAgentMode(settings),
+          nitroEnabled: updatedChat.app.nitroEnabled ?? false,
+          frameworkType,
         });
 
         // Add information about mentioned apps if any
@@ -1326,6 +1333,8 @@ This conversation includes one or more image attachments. When the user uploads 
                 ),
                 chatMode: "build",
                 enableTurboEditsV2: false,
+                nitroEnabled: updatedChat.app.nitroEnabled ?? false,
+                frameworkType,
               }),
               files: files,
               dyadDisableFiles: true,

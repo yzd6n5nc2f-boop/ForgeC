@@ -191,6 +191,14 @@ You have READ-ONLY tools at your disposal to understand the codebase. Follow the
 `;
 
 // ============================================================================
+// Server Layer Block (shared across Pro + Basic modes)
+// ============================================================================
+
+const SERVER_LAYER_BLOCK = `<server_layer>
+Vite apps in Dyad have NO server layer by default. Call the \`enable_nitro\` tool BEFORE writing any server-side code — see the tool's description for the authoritative WHEN TO CALL rules and the post-call \`vite.config.ts\` setup steps. If the tool is absent from your toolset, a server layer is not applicable (non-Vite app or Nitro already enabled).
+</server_layer>`;
+
+// ============================================================================
 // Image Generation Block (Pro mode only)
 // ============================================================================
 
@@ -226,6 +234,8 @@ ${PRO_FILE_EDITING_TOOL_SELECTION_BLOCK}
 
 ${PRO_DEVELOPMENT_WORKFLOW_BLOCK}
 
+${SERVER_LAYER_BLOCK}
+
 ${IMAGE_GENERATION_BLOCK}
 
 [[AI_RULES]]
@@ -249,6 +259,8 @@ ${BASIC_TOOL_CALLING_BEST_PRACTICES_BLOCK}
 ${BASIC_FILE_EDITING_TOOL_SELECTION_BLOCK}
 
 ${BASIC_DEVELOPMENT_WORKFLOW_BLOCK}
+
+${SERVER_LAYER_BLOCK}
 
 [[AI_RULES]]
 `;
